@@ -7,6 +7,7 @@ use App\Domain\User;
 use App\Http\Requests\UserStore;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\UserUpdate;
 
 class UserController extends Controller
 {
@@ -61,6 +62,39 @@ class UserController extends Controller
                 'message' => 'User succesfuly created.',
                 'data' => $user
             ],201);
+
+        }catch (\Exception $ex){
+            //mandar para o log
+            return response()->json([
+                'message' => "An unexpected error occurred.",
+            ], 500);
+        }
+    }
+
+    public function update(UserUpdate $request, User $user)
+    {
+        try {
+            $validated = $request->validated();
+
+            $user = DB::transaction(function() use ($validated, $user){
+                $user->fill($validated);
+
+                if(isset($validated['address'])){
+                    $user->address->fill($validated['address']);
+                    $user->address->save();
+                }
+
+                $user->save();
+
+                return $user;
+            });
+
+            $user->load('address');
+
+            return response()->json([
+                'message' => 'User succesfuly updated.',
+                'data' => $user
+            ]);
 
         }catch (\Exception $ex){
             //mandar para o log
