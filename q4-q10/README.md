@@ -46,7 +46,7 @@ A plataforma instalada:
 
 
 ### Questão 10
-- No cadastrar o usuário agora é possível passar como parâmetro o **password: _string_**
+- No cadastro do usuário agora é possível passar como parâmetro o **password: _string_**
 - Rotas de listagem, atualização e deleção foram protegidas. Para 
 ter acesso a esses recursos o usuário deve informar como 
 parametro o ***api_token*** que é retornado no cadastro.
