@@ -71,9 +71,17 @@ class UserController extends Controller
         }
     }
 
-    public function update(UserUpdate $request, User $user)
+    public function update(UserUpdate $request, $id)
     {
         try {
+            $user = User::find($id);
+
+            if(!$user){
+                return response()->json([
+                    'message' => 'User not found.'
+                ]);
+            }
+
             $validated = $request->validated();
 
             $user = DB::transaction(function() use ($validated, $user){
@@ -102,5 +110,22 @@ class UserController extends Controller
                 'message' => "An unexpected error occurred.",
             ], 500);
         }
+    }
+
+    public function delete($id)
+    {
+        $user = User::find($id);
+
+        if(!$user){
+            return response()->json([
+                'message' => 'User not found.'
+            ]);
+        }
+
+        $user->delete();
+
+        return response()->json([
+            'message' => 'User succesfuly deleted.'
+        ]);
     }
 }
