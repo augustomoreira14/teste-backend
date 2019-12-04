@@ -43,6 +43,21 @@ class UserResourceTest extends TestCase
         $response->assertStatus(422);
     }
 
+    public function testGetListUsers()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->get("/api/users");
+
+        $response->assertOk();
+
+        $response->assertJsonFragment([
+            "name" => $user->name,
+            "email" => $user->email,
+            "username" => $user->username,
+        ]);
+    }
+
     public function dataProvider()
     {
         return [
