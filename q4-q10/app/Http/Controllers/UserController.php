@@ -48,12 +48,16 @@ class UserController extends Controller
             $validated = $request->validated();
 
             $user = DB::transaction(function() use ($validated){
-                $user = new User([
+                $user = new User();
+
+                $user->forceFill([
                     'name' => $validated['name'],
-                    'email' => $validated['email'],
-                    'password' => bcrypt(123),
                     'username' => $validated['username'] ?? null,
                     'phone' => $validated['phone'] ?? null,
+                    'email' => $validated['email'],
+                    'email_verified_at' => now(),
+                    'password' => bcrypt($validated['password']),
+                    'remember_token' => Str::random(10),
                     'api_token' => Str::random(80)
                 ]);
 
@@ -94,6 +98,12 @@ class UserController extends Controller
             $validated = $request->validated();
 
             $user = DB::transaction(function() use ($validated, $user){
+
+                if(isset($validated['password'])){
+                    $user->password = bcrypt($validated['password']);
+                    unset($validated['password']);
+                }
+
                 $user->fill($validated);
 
                 if(isset($validated['address'])){

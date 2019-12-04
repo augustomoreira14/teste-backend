@@ -18,7 +18,8 @@ class ApiTokenController extends Controller
         $credentials = $request->only("email", "password");
 
         if(Auth::once($credentials)){
-
+            //$user = $request->user()->forceFill();
+           // dd($request->user()->api_token);
             return response()->json([
                 'api_token' => $request->user()->api_token
             ]);

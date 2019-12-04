@@ -27,6 +27,7 @@ class UserUpdate extends FormRequest
             'name' => 'nullable|string|max:150',
             'username' => 'nullable|string|max:250',
             'email' => 'nullable|string|email|max:100|unique:users',
+            'password' => 'nullable|string|min:6|max:100',
             'phone' => 'nullable|string',
             'address' => 'nullable|array',
             'address.number' => 'nullable|integer|min:1',
