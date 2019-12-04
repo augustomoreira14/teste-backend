@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    public function index(Request $req)
+    {
+        $users = User::paginate(10, [
+            'id', 'name', 'email', 'username'
+        ]);
+
+        return response()->json($users);
+    }
+
     public function store(UserStore $request)
     {
         try {
