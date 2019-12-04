@@ -96,6 +96,18 @@ class UserResourceTest extends TestCase
         ]);
     }
 
+    public function testDeleteUser()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->delete("/api/users/" . $user->id);
+
+        $response->assertOk();
+        $response->assertJson([
+            "message" => "User succesfuly deleted.",
+        ]);
+    }
+
     public function dataProvider()
     {
         return [
