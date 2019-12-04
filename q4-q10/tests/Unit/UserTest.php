@@ -26,4 +26,14 @@ class UserTest extends TestCase
 
         $this->assertEquals($address, $user->address);
     }
+
+    public function testSoftDelete()
+    {
+        $user = factory(User::class)->create();
+
+        $user->delete();
+
+        $this->assertCount(0,User::all());
+        $this->assertCount(1, User::withTrashed()->get());
+    }
 }
