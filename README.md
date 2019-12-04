@@ -8,3 +8,4 @@
 pode ser encontrada individualmente nos **branches** que vão de **q4** até **q9**. A implementação da **questão 10** 
 pode ser encontrada no **branch master**. Informações gerais podem ser encontradas no arquivo ***README***.
 
+- A aplicação está hospedada em: https://teste-niduu.herokuapp.com
