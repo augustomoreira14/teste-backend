@@ -8,6 +8,7 @@ use App\Http\Requests\UserStore;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\UserUpdate;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -45,7 +46,8 @@ class UserController extends Controller
                     'email' => $validated['email'],
                     'password' => bcrypt(123),
                     'username' => $validated['username'] ?? null,
-                    'phone' => $validated['phone'] ?? null
+                    'phone' => $validated['phone'] ?? null,
+                    'api_token' => Str::random(80)
                 ]);
 
                 if(isset($validated['address'])){

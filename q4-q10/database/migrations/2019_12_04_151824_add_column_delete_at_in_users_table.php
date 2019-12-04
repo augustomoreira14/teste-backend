@@ -25,8 +25,10 @@ class AddColumnDeleteAtInUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-        });
+        if(Schema::hasTable('users')){
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropSoftDeletes();
+            });
+        }
     }
 }

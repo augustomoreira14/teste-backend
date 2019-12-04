@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnAddressIdInUsersTable extends Migration
+class AddColumnApiTokenInUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,10 @@ class AddColumnAddressIdInUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger("addresses_id")->nullable();
-
-            $table->foreign("addresses_id")
-                ->references("id")
-                ->on("addresses");
+            $table->string('api_token', 80)
+                ->unique()
+                ->nullable()
+                ->default(null);
         });
     }
 
@@ -31,7 +30,7 @@ class AddColumnAddressIdInUsersTable extends Migration
     {
         if(Schema::hasTable('users')){
             Schema::table('users', function (Blueprint $table) {
-                $table->dropForeign(['addresses_id']);
+                $table->drop('api_token');
             });
         }
     }

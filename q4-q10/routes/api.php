@@ -13,8 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/users', "UserController@index");
-Route::get('/users/{user}', "UserController@show");
+Route::post('/auth/get_token', "ApiTokenController@getToken");
 Route::post('/users', "UserController@store");
-Route::put('/users/{user}', "UserController@update");
-Route::delete('/users/{user}', "UserController@delete");
+
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::get('/users', "UserController@index");
+    Route::put('/users/{user}', "UserController@update");
+    Route::delete('/users/{user}', "UserController@delete");
+    Route::get('/users/{user}', "UserController@show");
+});
+
