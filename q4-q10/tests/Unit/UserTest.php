@@ -19,9 +19,10 @@ class UserTest extends TestCase
     public function testAddressAssigment()
     {
         $address = factory(Address::class)->create();
-        $user = factory(User::class)->create();
 
+        $user = factory(User::class)->make();
         $user->address()->associate($address);
+        $user->save();
 
         $this->assertEquals($address, $user->address);
     }
