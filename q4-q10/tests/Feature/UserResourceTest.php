@@ -53,16 +53,12 @@ class UserResourceTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->getJson("/api/users", [
-            "api_token" => $user->api_token
-        ]);
+        $response = $this->getJson("/api/users");
 
         $response->assertOk();
 
         $response->assertJsonFragment([
-            "name" => $user->name,
-            "email" => $user->email,
-            "username" => $user->username,
+            "email" => $user->email
         ]);
     }
 

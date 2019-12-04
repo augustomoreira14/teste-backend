@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Domain\Address;
 use App\Domain\User;
+use App\Domain\UserSearch;
 use App\Http\Requests\UserStore;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,13 @@ class UserController extends Controller
 {
     public function index(Request $req)
     {
-        $users = User::paginate(10, [
+        $search = new UserSearch();
+        $builder = $search
+                    ->likeName($req->name)
+                    ->likeUsername($req->username)
+                    ->getBuilder();
+
+        $users = $builder->paginate(10, [
             'id', 'name', 'email', 'username'
         ]);
 
