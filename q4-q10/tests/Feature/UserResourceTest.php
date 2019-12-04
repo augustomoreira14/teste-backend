@@ -43,6 +43,71 @@ class UserResourceTest extends TestCase
         $response->assertStatus(422);
     }
 
+    public function testGetListUsers()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->get("/api/users");
+
+        $response->assertOk();
+
+        $response->assertJsonFragment([
+            "name" => $user->name,
+            "email" => $user->email,
+            "username" => $user->username,
+        ]);
+    }
+
+    public function testGetAnExistingUser()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->get("/api/users/{$user->id}");
+
+        $response->assertOk();
+
+        $response->assertJsonFragment([
+            "name" => $user->name,
+            "email" => $user->email,
+            "username" => $user->username,
+        ]);
+    }
+
+    public function testGetAnNonexistentUser()
+    {
+        $response = $this->get("/api/users/1");
+
+        $response->assertNotFound();
+    }
+
+    /**
+     * @dataProvider dataProvider
+     */
+    public function testUpdateUser($data)
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->putJson("/api/users/" . $user->id, $data);
+
+        $response->assertOk();
+        $response->assertJson([
+            "message" => "User succesfuly updated.",
+            "data" => $data
+        ]);
+    }
+
+    public function testDeleteUser()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->delete("/api/users/" . $user->id);
+
+        $response->assertOk();
+        $response->assertJson([
+            "message" => "User succesfuly deleted.",
+        ]);
+    }
+
     public function dataProvider()
     {
         return [
