@@ -1,6 +1,6 @@
-#Questão 1
+# Questão 1
 O SQL foi feito para MySQL, além disso se pressupõe a existência do banco de dados **database**.
-###_cursos_
+### _cursos_
 ```
 CREATE TABLE IF NOT EXISTS `database`.`cursos` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -12,9 +12,9 @@ CREATE TABLE IF NOT EXISTS `database`.`cursos` (
 ENGINE = InnoDB
 ```
 
-#Questão 2
+# Questão 2
 
-###_unidades_
+### _unidades_
 ```
 CREATE TABLE IF NOT EXISTS `database`.`unidades` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `database`.`unidades` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 ```
-###_lições_
+### _lições_
 ```
 CREATE TABLE IF NOT EXISTS `database`.`licoes` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `database`.`licoes` (
 ENGINE = InnoDB
 
 ```
-#Questão 3
+# Questão 3
 
 ```
 {
