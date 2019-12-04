@@ -10,8 +10,7 @@ A plataforma instalada:
 #### Cadastro de usuário
 - ***method:*** POST
 - ***endpoint:*** _/api/users_ 
-- ***headers:*** Content-Type: application/json, X-Requested-With, XMLHttpRequest
-
+- ***headers:*** Content-Type: application/json, X-Requested-With: XMLHttpRequest
 
 
 ### Questão 6
@@ -35,14 +34,14 @@ A plataforma instalada:
 - ***method:*** PUT
 - ***endpoint:*** _/api/users_/{id}
 - ***params:*** { name: string, username: string, email: string, phone: string, address: object } 
-- ***headers:*** Content-Type: application/json, X-Requested-With, XMLHttpRequest
+- ***headers:*** Content-Type: application/json, X-Requested-With: XMLHttpRequest
 
 
 ### Questão 9
 #### Deletar um usuário
 - ***method:*** DELETE
 - ***endpoint:*** _/api/users_/{id}
-- ***headers:*** Content-Type: application/json, X-Requested-With, XMLHttpRequest
+- ***headers:*** Content-Type: application/json, X-Requested-With: XMLHttpRequest
 
 
 ### Questão 10
