@@ -14,5 +14,6 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/users', "UserController@index");
+Route::get('/users/{user}', "UserController@show");
 Route::post('/users', "UserController@store");
 
