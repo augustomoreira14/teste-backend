@@ -58,6 +58,28 @@ class UserResourceTest extends TestCase
         ]);
     }
 
+    public function testGetAnExistingUser()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->get("/api/users/{$user->id}");
+
+        $response->assertOk();
+
+        $response->assertJsonFragment([
+            "name" => $user->name,
+            "email" => $user->email,
+            "username" => $user->username,
+        ]);
+    }
+
+    public function testGetAnNonexistentUser()
+    {
+        $response = $this->get("/api/users/1");
+
+        $response->assertNotFound();
+    }
+
     public function dataProvider()
     {
         return [
