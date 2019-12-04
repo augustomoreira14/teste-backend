@@ -88,8 +88,13 @@ class UserController extends Controller
                 $user->fill($validated);
 
                 if(isset($validated['address'])){
-                    $user->address->fill($validated['address']);
-                    $user->address->save();
+                    if(!$user->address){
+                        $address = Address::create($validated['address']);
+                        $user->address()->associate($address);
+                    }else{
+                        $user->address->fill($validated['address']);
+                        $user->address->save();
+                    }
                 }
 
                 $user->save();
