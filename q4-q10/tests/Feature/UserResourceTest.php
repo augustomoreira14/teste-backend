@@ -80,6 +80,22 @@ class UserResourceTest extends TestCase
         $response->assertNotFound();
     }
 
+    /**
+     * @dataProvider dataProvider
+     */
+    public function testUpdateUser($data)
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->putJson("/api/users/" . $user->id, $data);
+
+        $response->assertOk();
+        $response->assertJson([
+            "message" => "User succesfuly updated.",
+            "data" => $data
+        ]);
+    }
+
     public function dataProvider()
     {
         return [
